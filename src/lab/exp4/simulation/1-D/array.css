@@ -481,6 +481,10 @@ body {
     margin-top: 15px;
 }
 
+.arrowdiv{
+    text-decoration-color: red;
+}
+
 .arrowImage {
     content: url('arrow.png');
 }

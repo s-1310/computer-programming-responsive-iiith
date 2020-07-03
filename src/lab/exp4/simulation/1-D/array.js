@@ -51,6 +51,7 @@ window.view = {
 		this.addClickEvent('btnOk', function() { view.proceedToStartButton() })
 		this.addClickEvent('btnStart', function() { view.displayElements() })
 		this.addClickEvent('btnNext', function() { view.sortArray() })
+		this.addClickEvent('btnRandom', function() { view.displayRandomElements() })
 	},
 	proceedToStartButton: function() {
 		var userInput = this.getArraySize()
@@ -69,12 +70,19 @@ window.view = {
 		else
 			alert( 'Size of the array must be an Integer !' )
 	},
+	displayRandomElements: function() {
+		console.log('on clicking random radio btn');
+		
+		this.generateRandomNumbers()
+		document.getElementById('userInput').innerHTML = this.numbers
+	},
 	generateRandomNumbers: function() {
 		var inputValue = this.getArraySize()
 		for ( i = 0 ; i < inputValue ; i++ ) {
 			var random = Math.floor(Math.random()*15)
 			this.numbers.push(String(random))
 		}
+		
 	},
 	getUserInput: function() {
 		var inputValue = document.getElementById('userInput').value
@@ -83,21 +91,29 @@ window.view = {
 	},
 	takeInputFromRadioBox: function() {
 		var element = document.getElementsByName('radio_group')
-		if ( element[0].checked )
-			this.generateRandomNumbers()
-		else if (element[1].checked)
+		if (element[1].checked || element[0].checked){
+			// document.getElementById('userInput').value = null
 			this.getUserInput()
+		}
+		else{
+			alert('Please check one of the radio button')
+		}
 	},
 	createBoxes: function() {
 		for ( i = 0 ; i < this.numbers.length ; i++ ) {
 			var outerDiv = document.createElement('div')
 			outerDiv.className = 'outerDiv'
 			var element = document.createElement('div')
+			var arrowdiv = document.createElement('div')
+			// arrowdiv.className = 'arrowdiv'
+			// arrowdiv.innerHTML = '^'
 			element.innerHTML = this.numbers[i]
 			if ( i === 0 )
 				element.className = 'sortedArray'
-			else if ( i === 1 )
+			else if ( i === 1 ){
 				element.className = 'keyPosition'
+				// element.appendChild(arrowdiv)
+			}
 			else
 				element.className = 'unSortedArray'
 			outerDiv.appendChild(element)
